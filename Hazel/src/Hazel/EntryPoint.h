@@ -8,7 +8,9 @@ extern Hazel::Application* Hazel::CreateApplication();
 
 int main(int argc, char** argv) /// To be learnt!
 {
-	auto app = Hazel::CreateApplication(); /// auto
+	Hazel::Log::Init();
+
+	auto app = Hazel::CreateApplication();
 	app->Run();
 	delete app;
 }
