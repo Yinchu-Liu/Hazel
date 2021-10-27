@@ -1,9 +1,10 @@
 #pragma once
-#include <memory>
+#include "hzpch.h"
 #include "Core.h"
 #include "spdlog/spdlog.h"
+#include "spdlog/fmt/ostr.h"
 
-
+// Put everything into Hazel namespace!
 namespace Hazel {
 	
 	class HAZEL_API Log
@@ -12,7 +13,8 @@ namespace Hazel {
 	public:
 		static void Init();
 
-		inline static std::shared_ptr<spdlog::logger>& GetCoreLogger() { return s_CoreLogger; }
+		// We wanna create two consoles, one for Core and one for the Client!
+		inline static std::shared_ptr<spdlog::logger>& GetCoreLogger() { return s_CoreLogger; } // TODO: understand what is shared_ptr<>
 		inline static std::shared_ptr<spdlog::logger>& GetClientLogger() { return s_ClientLogger; }
 
 	private:
@@ -25,15 +27,19 @@ namespace Hazel {
 }
 
 // Core log macros
-#define HZ_CORE_TRACE(...)			::Hazel::Log::GetCoreLogger()->trace(__VA_ARGS__)
+#define HZ_CORE_TRACE(...)			::Hazel::Log::GetCoreLogger()->trace(__VA_ARGS__) // TODO: What is __VA_ARGS__?
 #define HZ_CORE_INFO(...)			::Hazel::Log::GetCoreLogger()->info(__VA_ARGS__)
 #define HZ_CORE_WARN(...)			::Hazel::Log::GetCoreLogger()->warn(__VA_ARGS__)
 #define HZ_CORE_ERROR(...)			::Hazel::Log::GetCoreLogger()->error(__VA_ARGS__)
 #define HZ_CORE_FATAL(...)			::Hazel::Log::GetCoreLogger()->fatal(__VA_ARGS__)
 
+// Currently accepts at least the condition and one additional parameter (the message) being optional
+#define HZ_ASSERT(...) HZ_EXPAND_MACRO( HZ_INTERNAL_ASSERT_GET_MACRO(__VA_ARGS__)(_, __VA_ARGS__) )
+#define HZ_CORE_ASSERT(...) HZ_EXPAND_MACRO( HZ_INTERNAL_ASSERT_GET_MACRO(__VA_ARGS__)(_CORE_, __VA_ARGS__) )
+
 // Client log macros
-#define HZ_Client_TRACE(...)		::Hazel::Log::GetClientLogger()->trace(__VA_ARGS__)
-#define HZ_Client_INFO(...)			::Hazel::Log::GetClientLogger()->info(__VA_ARGS__)
-#define HZ_Client_WARN(...)			::Hazel::Log::GetClientLogger()->warn(__VA_ARGS__)
-#define HZ_Client_ERROR(...)		::Hazel::Log::GetClientLogger()->error(__VA_ARGS__)
-#define HZ_Client_FATAL(...)		::Hazel::Log::GetClientLogger()->fatal(__VA_ARGS__)
+#define HZ_TRACE(...)		::Hazel::Log::GetClientLogger()->trace(__VA_ARGS__)
+#define HZ_INFO(...)			::Hazel::Log::GetClientLogger()->info(__VA_ARGS__)
+#define HZ_WARN(...)			::Hazel::Log::GetClientLogger()->warn(__VA_ARGS__)
+#define HZ_ERROR(...)		::Hazel::Log::GetClientLogger()->error(__VA_ARGS__)
+#define HZ_FATAL(...)		::Hazel::Log::GetClientLogger()->fatal(__VA_ARGS__)
