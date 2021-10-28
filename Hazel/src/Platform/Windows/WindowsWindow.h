@@ -23,12 +23,15 @@ namespace Hazel {
 		bool IsVSync() const override;
 
 		virtual void* GetNativeWindow() const { return m_Window; }
+
 	private:
 		virtual void Init(const WindowProps& props);
 		virtual void Shutdown();
+	
 	private:
 		GLFWwindow* m_Window;
 
+		// Pass by a struct(repository of data).
 		struct WindowData
 		{
 			std::string Title;

@@ -33,10 +33,6 @@ namespace Hazel {
 #define HZ_CORE_ERROR(...)			::Hazel::Log::GetCoreLogger()->error(__VA_ARGS__)
 #define HZ_CORE_FATAL(...)			::Hazel::Log::GetCoreLogger()->fatal(__VA_ARGS__)
 
-// Currently accepts at least the condition and one additional parameter (the message) being optional
-#define HZ_ASSERT(...) HZ_EXPAND_MACRO( HZ_INTERNAL_ASSERT_GET_MACRO(__VA_ARGS__)(_, __VA_ARGS__) )
-#define HZ_CORE_ASSERT(...) HZ_EXPAND_MACRO( HZ_INTERNAL_ASSERT_GET_MACRO(__VA_ARGS__)(_CORE_, __VA_ARGS__) )
-
 // Client log macros
 #define HZ_TRACE(...)		::Hazel::Log::GetClientLogger()->trace(__VA_ARGS__)
 #define HZ_INFO(...)			::Hazel::Log::GetClientLogger()->info(__VA_ARGS__)

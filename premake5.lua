@@ -14,6 +14,7 @@ outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 IncludeDir = {}
 IncludeDir["GLFW"] = "Hazel/vendor/GLFW/include"
 
+-- Basically means to copy and paste project "GLFW" here.
 include "Hazel/vendor/GLFW"
 
 project "Hazel"
@@ -57,14 +58,14 @@ project "Hazel"
 			"HZ_BUILD_DLL"
 		}
 
-		postbuildcommands
-		{
-			{"{copy} %{cfg.buildtarget.relpath} ../bin/" .. outputdir .. "/Sandbox"}
-		}
-
 	filter "configurations:Debug"
 		defines "HZ_DEBUG"
 		symbols "On"
+		
+	postbuildcommands
+	{
+		("{COPY} ../bin/" .. outputdir .. "/Hazel" .. " ../bin/" .. outputdir .. "/Sandbox")
+	}
 
 	filter "configurations:Release"
 		defines "HZ_RELEASE"
@@ -73,6 +74,8 @@ project "Hazel"
 	filter "configurations:Dist"
 		defines "HZ_DIST"
 		symbols "On"
+		
+	
 
 project "Sandbox"
 	location "Sandbox"
