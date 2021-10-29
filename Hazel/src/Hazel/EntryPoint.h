@@ -6,8 +6,18 @@
 // In this case, "somewhere" means SandboxApp.
 extern Hazel::Application* Hazel::CreateApplication();
 
-int main(int argc, char** argv) /// To be learnt!
+// The two variables are how command line arguments are passed to main() in C/C++.
+// The name can be given whatever as you like.
+// argc: argument count, number of arguments that will be passed to your program.
+// argv: argument vector, array/vector of the arguments you wanna pass.
+// Command line argument is mostly used to control a programe from outside.
+int main(int argc, char** argv)
 {
+	// The argv is C:\dev\Hazel\Sandbox\..\bin\Debug-windows-x86_64\Sandbox\Sandbox.exe
+	for (int i = 0; i < argc; ++i) {
+		std::cout << argv[i] << std::endl;
+	}
+
 	Hazel::Log::Init();
 	HZ_CORE_WARN("Initialized Log!");
 	HZ_INFO("Hello!");
@@ -21,3 +31,5 @@ int main(int argc, char** argv) /// To be learnt!
 #else
 	#error HAZEL ONLY SUPPORTS WINDOWS!
 #endif
+
+
