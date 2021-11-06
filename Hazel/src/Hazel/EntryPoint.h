@@ -2,7 +2,7 @@
 
 #ifdef HZ_PLATFORM_WINDOWS
 
-// Somewhere we have something(function we will define) that returns a Hazel Application pointer for us.
+// Somewhere we have something(function we will define) that returns a Hazel Application pointer for us. Then VS will help us find it!
 // In this case, "somewhere" means SandboxApp.
 extern Hazel::Application* Hazel::CreateApplication();
 

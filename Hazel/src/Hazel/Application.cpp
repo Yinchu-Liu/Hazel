@@ -1,4 +1,5 @@
 #include "hzpch.h"
+
 #include "Application.h"
 
 #include "Hazel/Log.h"
@@ -14,6 +15,7 @@ namespace Hazel {
 	Application::Application()
 	{
 		HZ_CORE_ASSERT(!s_Instance, "Application already exists!");
+		s_Instance = this;
 		m_Window = std::unique_ptr<Window>(Window::Create());
 		m_Window->SetEventCallback(BIND_EVENT_FN(OnEvent));
 
@@ -60,7 +62,6 @@ namespace Hazel {
 	{/*
 		WindowResizeEvent e(1280, 720);
 		HZ_TRACE(e);*/
-
 		while (m_Running)
 		{
 			glClearColor(1, 0, 1, 1);
